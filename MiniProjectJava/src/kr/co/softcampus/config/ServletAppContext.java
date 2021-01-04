@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -31,6 +33,7 @@ import kr.co.softcampus.service.TopMenuService;
 @ComponentScan("kr.co.softcampus.dao")
 @ComponentScan("kr.co.softcampus.service")
 @PropertySource("/WEB-INF/properties/db.properties")
+
 public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Value("${db.classname}")
@@ -111,6 +114,19 @@ public class ServletAppContext implements WebMvcConfigurer{
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService);
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");
+	}
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer PropertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	//메시지 등록
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource res = new ReloadableResourceBundleMessageSource();
+		res.setBasenames("/WEB-INF/properties/error_message");
+		return res;
 	}
 }
 
