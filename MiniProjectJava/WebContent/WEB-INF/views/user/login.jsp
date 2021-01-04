@@ -26,11 +26,13 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<div class="alert alert-danger">
-						<h3>로그인 실패</h3>
-						<p>아이디 비밀번호를 확인해주세요</p>
-					</div>
-					<form:form action="${root }user/user_pro" method="post" modelAttribute="tempLoginUserBean">
+					<c:if test="${fail==true }">
+						<div class="alert alert-danger">
+							<h3>로그인 실패</h3>
+							<p>아이디 비밀번호를 확인해주세요</p>
+						</div>
+					</c:if>
+					<form:form action="${root }user/login_pro" method="post" modelAttribute="tempLoginUserBean">
 						<div class="form-group">
 							<form:label path="user_id">아이디</form:label>
 							<form:input path="user_id" class="form-control"/>
@@ -42,7 +44,6 @@
 							<form:errors path="user_pw" style="color:red" />
 						</div>
 						<div class="form-group text-right">
-							<button type="submit" class="btn btn-primary">로그인</button>
 							<form:button class="btn btn-primary">로그인</form:button>
 							<a href="${root }user/join" class="btn btn-danger">회원가입</a>
 						</div>
