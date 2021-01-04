@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softcampus.beans.UserBean;
+import kr.co.softcampus.interceptor.CheckLoginInterceptor;
 import kr.co.softcampus.interceptor.TopMenuInterceptor;
 import kr.co.softcampus.mapper.BoardMapper;
 import kr.co.softcampus.mapper.TopMenuMapper;
@@ -129,6 +130,11 @@ public class ServletAppContext implements WebMvcConfigurer{
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService, loginUserBean);
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");
+		
+		CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
+		reg2.addPathPatterns("/user/modify","/user/logout","/board/*");
+		reg2.excludePathPatterns("/board/main");
 	}
 	
 	@Bean
