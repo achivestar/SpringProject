@@ -24,4 +24,10 @@ public interface BoardMapper {
 			"ORDER BY a1.content_idx DESC")
 	
 	List<ContentBean> getContentList(int board_info_idx);
+	
+	@Select("SELECT a2.user_name AS content_writer_name, a1.content_date, a1.content_subject, a1.content_text, a1.content_file, a1.content_writer_idx " + 
+			"FROM content_table a1, user_table a2 "+ 
+			"WHERE a1.content_writer_idx = a2.user_idx " + 
+			"AND content_idx=#{content_idx}")
+	ContentBean getContentInfo(int content_idx);
 }
