@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,29 +34,34 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	@Resource(name="loginUserBean")
+	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
 	
-	public String saveUploadFile(MultipartFile upload_file) {
-		String file_name = System.currentTimeMillis()+"_"+upload_file.getOriginalFilename();
+	private String saveUploadFile(MultipartFile upload_file) {
+		
+		String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
 		
 		try {
-			upload_file.transferTo(new File(path_upload+"/"+file_name));
-		} catch (Exception e) {
+			upload_file.transferTo(new File(path_upload + "/" + file_name));
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		return file_name;
 	}
-
+	
 	public void addContentInfo(ContentBean writeContentBean) {
+		
 		MultipartFile upload_file = writeContentBean.getUpload_file();
-		if(upload_file.getSize()>0) {
+		
+		
+		if(upload_file.getSize() > 0) {
 			String file_name = saveUploadFile(upload_file);
-			//System.out.println(file_name);
 			writeContentBean.setContent_file(file_name);
 		}
+		
 		writeContentBean.setContent_writer_idx(loginUserBean.getUser_idx());
+		
 		boardDao.addContentInfo(writeContentBean);
 	}
 	
@@ -64,10 +70,11 @@ public class BoardService {
 	}
 	
 	public List<ContentBean> getContentList(int board_info_idx, int page){
-		int start = (page-1) * page_listcnt;
-		RowBounds rowBounds = new RowBounds(start, page_listcnt);
-		return boardDao.getContentList(board_info_idx,rowBounds);
 		
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		
+		return boardDao.getContentList(board_info_idx, rowBounds);
 	}
 	
 	public ContentBean getContentInfo(int content_idx) {
@@ -75,9 +82,10 @@ public class BoardService {
 	}
 	
 	public void modifyContentInfo(ContentBean modifyContentBean) {
+		
 		MultipartFile upload_file = modifyContentBean.getUpload_file();
 		
-		if(upload_file.getSize()>0) {
+		if(upload_file.getSize() > 0) {
 			String file_name = saveUploadFile(upload_file);
 			modifyContentBean.setContent_file(file_name);
 		}
@@ -89,8 +97,8 @@ public class BoardService {
 		boardDao.deleteContentInfo(content_idx);
 	}
 	
-	
 	public PageBean getContentCnt(int content_board_idx, int currentPage) {
+		
 		int content_cnt = boardDao.getContentCnt(content_board_idx);
 		
 		PageBean pageBean = new PageBean(content_cnt, currentPage, page_listcnt, page_paginationcnt);
@@ -98,3 +106,11 @@ public class BoardService {
 		return pageBean;
 	}
 }
+
+
+
+
+
+
+
+

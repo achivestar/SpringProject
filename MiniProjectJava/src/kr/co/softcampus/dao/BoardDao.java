@@ -11,7 +11,7 @@ import kr.co.softcampus.mapper.BoardMapper;
 
 @Repository
 public class BoardDao {
-
+	
 	@Autowired
 	private BoardMapper boardMapper;
 	
@@ -24,7 +24,7 @@ public class BoardDao {
 	}
 	
 	public List<ContentBean> getContentList(int board_info_idx, RowBounds rowBounds){
-		return boardMapper.getContentList(board_info_idx,rowBounds);
+		return boardMapper.getContentList(board_info_idx, rowBounds);
 	}
 	
 	public ContentBean getContentInfo(int content_idx) {
@@ -43,5 +43,13 @@ public class BoardDao {
 		return boardMapper.getContentCnt(content_board_idx);
 	}
 }
+
+
+
+
+
+
+
+
 
 

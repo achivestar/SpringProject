@@ -22,37 +22,37 @@ import kr.co.softcampus.validator.UserValidator;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 	
-	@Resource(name="loginUserBean")
+	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
 	
-	
 	@GetMapping("/login")
-	public String login(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean, @RequestParam(value="fail", defaultValue = "false") boolean fail, Model model) {
+	public String login(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
+						@RequestParam(value = "fail", defaultValue = "false") boolean fail,
+						Model model) {
 		
-		model.addAttribute("fail",fail);
+		model.addAttribute("fail", fail);
+	
 		return "user/login";
 	}
 	
 	@PostMapping("/login_pro")
-	public String user_pro(@Valid @ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean, BindingResult result) {
+	public String login_pro(@Valid @ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean, BindingResult result) {
+		
 		if(result.hasErrors()) {
 			return "user/login";
 		}
 		
 		userService.getLoginUserInfo(tempLoginUserBean);
 		
-		if(loginUserBean.isUserLogin()==true) {
+		if(loginUserBean.isUserLogin() == true) {
 			return "user/login_success";
-		}else {
-			
+		} else {
 			return "user/login_fail";
 		}
-		
-		
 	}
 	
 	@GetMapping("/join")
@@ -61,8 +61,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/join_pro")
-	public String join_pro(@Valid @ModelAttribute("joinUserBean") UserBean joinUserBean,BindingResult result) {
-		
+	public String join_pro(@Valid @ModelAttribute("joinUserBean") UserBean joinUserBean, BindingResult result) {
 		if(result.hasErrors()) {
 			return "user/join";
 		}
@@ -76,11 +75,13 @@ public class UserController {
 	public String modify(@ModelAttribute("modifyUserBean") UserBean modifyUserBean) {
 		
 		userService.getModifyUserInfo(modifyUserBean);
+		
 		return "user/modify";
 	}
 	
 	@PostMapping("/modify_pro")
 	public String modify_pro(@Valid @ModelAttribute("modifyUserBean") UserBean modifyUserBean, BindingResult result) {
+		
 		if(result.hasErrors()) {
 			return "user/modify";
 		}
@@ -92,7 +93,9 @@ public class UserController {
 	
 	@GetMapping("/logout")
 	public String logout() {
+		
 		loginUserBean.setUserLogin(false);
+		
 		return "user/logout";
 	}
 	
@@ -107,3 +110,11 @@ public class UserController {
 		binder.addValidators(validator1);
 	}
 }
+
+
+
+
+
+
+
+

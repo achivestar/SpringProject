@@ -5,17 +5,17 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ContentBean {
-
 	private int content_idx;
+	
 	@NotBlank
 	private String content_subject;
+	
 	@NotBlank
 	private String content_text;
 	
-	private String content_file; //서버에 저장할 파일 데이터 이름
-	 
-	private MultipartFile upload_file; //클라이언트가 보낸 파일 데이터 이름
+	private MultipartFile upload_file;
 	
+	private String content_file;
 	private int content_writer_idx;
 	private int content_board_idx;
 	private String content_date;
@@ -75,8 +75,6 @@ public class ContentBean {
 	public void setContent_writer_name(String content_writer_name) {
 		this.content_writer_name = content_writer_name;
 	}
-	
-	
 	
 	
 }

@@ -82,7 +82,7 @@ public class SpringConfigClass extends AbstractAnnotationConfigDispatcherServlet
 		// TODO Auto-generated method stub
 		super.customizeRegistration(registration);
 		
-		MultipartConfigElement config1 = new MultipartConfigElement(null,52428800,524288000,0);
+		MultipartConfigElement config1 = new MultipartConfigElement(null, 52428800, 524288000, 0);
 		registration.setMultipartConfig(config1);
 	}
 }

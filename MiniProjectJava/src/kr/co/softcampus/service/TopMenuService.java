@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 
 import kr.co.softcampus.beans.BoardInfoBean;
 import kr.co.softcampus.dao.TopMenuDao;
-import kr.co.softcampus.interceptor.TopMenuInterceptor;
 
 @Service
 public class TopMenuService {
-
+	
 	@Autowired
 	private TopMenuDao topMenuDao;
-
 	
 	public List<BoardInfoBean> getTopMenuList(){
 		List<BoardInfoBean> topMenuList = topMenuDao.getTopMenuList();
 		return topMenuList;
 	}
+	
 }

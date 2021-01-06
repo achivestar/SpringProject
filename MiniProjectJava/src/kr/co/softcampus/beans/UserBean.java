@@ -4,27 +4,25 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserBean {
-
-	
 	private int user_idx;
+	
 	@Size(min=2, max=4)
-	@Pattern(regexp="[가-힣]*")
+	@Pattern(regexp = "[가-힣]*")
 	private String user_name;
 	
 	@Size(min=4, max=20)
-	@Pattern(regexp="[a-zA-Z0-9]*")  //영문과 숫자만 허용
+	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_id;
 	
 	@Size(min=4, max=20)
-	@Pattern(regexp="[a-zA-Z0-9]*")
+	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw;
 	
 	@Size(min=4, max=20)
-	@Pattern(regexp="[a-zA-Z0-9]*")
+	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw2;
 	
 	private boolean userIdExist;
-	
 	private boolean userLogin;
 	
 	public UserBean() {
@@ -78,7 +76,6 @@ public class UserBean {
 	public void setUserLogin(boolean userLogin) {
 		this.userLogin = userLogin;
 	}
-	
 	
 	
 }

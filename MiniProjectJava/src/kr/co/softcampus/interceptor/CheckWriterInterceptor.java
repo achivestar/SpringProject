@@ -12,14 +12,14 @@ import kr.co.softcampus.service.BoardService;
 public class CheckWriterInterceptor implements HandlerInterceptor{
 	
 	private UserBean loginUserBean;
-	
 	private BoardService boardService;
 	
 	public CheckWriterInterceptor(UserBean loginUserBean, BoardService boardService) {
+		// TODO Auto-generated constructor stub
 		this.loginUserBean = loginUserBean;
 		this.boardService = boardService;
 	}
-
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -32,10 +32,22 @@ public class CheckWriterInterceptor implements HandlerInterceptor{
 		
 		if(currentContentBean.getContent_writer_idx() != loginUserBean.getUser_idx()) {
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath+"/board/not_writer");
+			response.sendRedirect(contextPath + "/board/not_writer");
 			return false;
 		}
 		
 		return true;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
