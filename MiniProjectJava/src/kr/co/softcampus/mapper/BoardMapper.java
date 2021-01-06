@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import kr.co.softcampus.beans.ContentBean;
 
@@ -25,7 +26,7 @@ public interface BoardMapper {
 			"AND a1.content_board_idx=#{board_info_idx} " + 
 			"ORDER BY a1.content_idx DESC")
 	
-	List<ContentBean> getContentList(int board_info_idx);
+	List<ContentBean> getContentList(int board_info_idx, RowBounds rowBounds);
 	
 	@Select("SELECT a2.user_name AS content_writer_name, a1.content_date, a1.content_subject, a1.content_text, a1.content_file, a1.content_writer_idx " + 
 			"FROM content_table a1, user_table a2 "+ 
@@ -41,4 +42,8 @@ public interface BoardMapper {
 	
 	@Delete("DELETE FROM content_table WHERE content_idx=#{content_idx}")
 	void deleteContentInfo(int content_idx);
+	
+	@Select("select count(*) from content_table where content_board_idx = #{content_board_idx}")
+	int getContentCnt(int content_board_idx);
+	
 }
